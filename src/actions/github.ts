@@ -1,38 +1,49 @@
 import { env } from "~/env";
-import { Octokit } from "octokit";
 
-const octokit = new Octokit({
-  auth: env.GITHUB_TOKEN,
-});
-
-export const fetchStarredRepos = async ({ username }: { username: string }) => {
-  const res = await octokit.request("GET /users/{username}/starred", {
-    username: username,
+export const fetchStarredRepos = async ({
+  username,
+}: {
+  username: string;
+}): Promise<Repository[]> => {
+  const res = await fetch(`https://api.github.com/users/${username}/starred`, {
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+    },
+    next: {
+      revalidate: 0,
     },
   });
 
-  if (!res) {
+  const response = (await res.json()) as Repository[];
+
+  if (!response) {
     throw new Error("Failed to fetch starred repos");
   }
 
-  return res;
+  return response;
 };
 
 export const fetchUser = async ({ username }: { username: string }) => {
-  const res = await octokit.request("GET /users/{username}", {
-    username: username,
+  const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+    },
+    next: {
+      revalidate: 0,
     },
   });
 
-  if (!res) {
+  const response = (await res.json()) as User;
+
+  if (!response) {
     throw new Error("Failed to fetch user");
   }
 
-  return res;
+  return response;
 };
 
 export const doesUserExist = async ({ username }: { username: string }) => {

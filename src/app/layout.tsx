@@ -1,17 +1,18 @@
 import "~/styles/globals.css";
 
-import { Work_Sans } from "next/font/google";
+import type { Metadata } from "next";
+import { Work_Sans as FontSans } from "next/font/google";
 import Providers from "~/components/providers";
 
-const workSans = Work_Sans({
+const fontSans = FontSans({
   subsets: ["latin"],
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Git Starred",
   description:
-    "Git Starred is a platform for you to browse starred repositories from the community.",
+    "Browse and search starred repositories from community GitHub profiles.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
@@ -21,12 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${workSans.className}`}>
-      <body>
-        <Providers>
+    <Providers>
+      <html
+        lang="en"
+        className="scroll-smooth antialiased"
+        suppressHydrationWarning
+      >
+        <body className={`min-h-screen ${fontSans.className}`}>
           <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{children}</div>
-        </Providers>
-      </body>
-    </html>
+        </body>
+      </html>
+    </Providers>
   );
 }

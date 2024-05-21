@@ -1,5 +1,6 @@
 import { CircleIcon, StarIcon } from "@radix-ui/react-icons";
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
 
 import {
   Card,
@@ -9,17 +10,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 
-export function RepoCard({
-  repo,
-}: {
-  repo: {
-    full_name: string;
-    description: string;
-    language: string;
-    stargazers_count: number;
-    updated_at: string;
-  };
-}) {
+export function RepoCard({ repo }: { repo: Repository }) {
   return (
     <Card>
       <CardHeader className="grid items-start gap-4 space-y-0">
@@ -31,7 +22,7 @@ export function RepoCard({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-muted-foreground flex space-x-4 text-sm">
+        <div className="flex space-x-4 text-sm text-muted-foreground">
           <div className="flex items-center">
             <CircleIcon className="mr-1 h-3 w-3 fill-sky-400 text-sky-400" />
             {repo?.language}
@@ -46,3 +37,5 @@ export function RepoCard({
     </Card>
   );
 }
+
+export const MotionRepoCard = motion(RepoCard);

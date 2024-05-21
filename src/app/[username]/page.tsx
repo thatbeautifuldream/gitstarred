@@ -1,28 +1,23 @@
 import { fetchStarredRepos, fetchUser } from "~/actions/github";
-import { RepoCard } from "~/components/repo-card";
+import LineTabs from "~/components/line-tabs";
+import RepoProfile from "~/components/repo/repo-profile";
 
-export default async function GitStarredProfile({
+export default async function Page({
   params,
 }: {
-  params: { username: string };
+  params: {
+    username: string;
+  };
 }) {
-  const { data: repos } = await fetchStarredRepos({
-    username: params.username,
-  });
+  const { username } = params;
+  const data = await fetchStarredRepos({ username });
+  const userData = await fetchUser({ username });
 
-  const { data: user } = await fetchUser({
-    username: params.username,
-  });
-
+  console.log({ userData });
   return (
     <>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {repos.map((repo, id) => (
-          // @ts-expect-error - type is missing from repo
-          <RepoCard key={id} repo={repo} />
-        ))}
-      </div>
+      <RepoProfile user={userData} />
+      <LineTabs repos={data} />
     </>
   );
 }
