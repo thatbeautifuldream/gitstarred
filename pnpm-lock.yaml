@@ -158,6 +158,9 @@ importers:
       postgres:
         specifier: ^3.4.3
         version: 3.4.4
+      prisma:
+        specifier: ^5.14.0
+        version: 5.14.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -3940,11 +3943,9 @@ snapshots:
     optionalDependencies:
       prisma: 5.14.0
 
-  '@prisma/debug@5.14.0':
-    optional: true
+  '@prisma/debug@5.14.0': {}
 
-  '@prisma/engines-version@5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48':
-    optional: true
+  '@prisma/engines-version@5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48': {}
 
   '@prisma/engines@5.14.0':
     dependencies:
@@ -3952,19 +3953,16 @@ snapshots:
       '@prisma/engines-version': 5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
       '@prisma/fetch-engine': 5.14.0
       '@prisma/get-platform': 5.14.0
-    optional: true
 
   '@prisma/fetch-engine@5.14.0':
     dependencies:
       '@prisma/debug': 5.14.0
       '@prisma/engines-version': 5.14.0-25.e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
       '@prisma/get-platform': 5.14.0
-    optional: true
 
   '@prisma/get-platform@5.14.0':
     dependencies:
       '@prisma/debug': 5.14.0
-    optional: true
 
   '@radix-ui/number@1.0.1':
     dependencies:
@@ -6377,7 +6375,6 @@ snapshots:
   prisma@5.14.0:
     dependencies:
       '@prisma/engines': 5.14.0
-    optional: true
 
   prop-types@15.8.1:
     dependencies:
