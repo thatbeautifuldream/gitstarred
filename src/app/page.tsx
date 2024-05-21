@@ -1,74 +1,61 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { Button } from "~/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
-import { toast } from "sonner";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
-
-export default function InputForm() {
+export default function Page() {
   const router = useRouter();
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      username: "",
-    },
-  });
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast.success(`Hi ${data?.username}!`);
-    router.push(`/${data?.username}`);
-  }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string;
+    router.push(`/${username}`);
+  };
 
   return (
     <>
-      <div className="flex h-screen items-center justify-center">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-2/3 space-y-6"
-          >
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="thatbeautifuldream"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Enter a GitHub username to fetch their starred repositories.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Get starrrrrrted! 😉
+          </h2>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
+            <div>
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                Username
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="username"
+                  autoComplete="false"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+              >
+                Get Starred Repos
+              </button>
+            </div>
           </form>
-        </Form>
+          {/* <p className="mt-10 text-center text-sm text-gray-500">
+            Not a member?{" "}
+            <Link
+              href="#"
+              className="font-semibold leading-6 text-gray-600 hover:text-gray-500"
+            >
+              Get a free account on GitHub.
+            </Link>
+          </p> */}
+        </div>
       </div>
     </>
   );

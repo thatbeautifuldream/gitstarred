@@ -17,15 +17,15 @@ export default function StarredRepos({ repos }: { repos: Repository[] }) {
       {repos?.map((repo, index: number) => (
         <motion.div
           key={index}
-          initial={{ opacity: 0, y: -50, x: -50 }}
-          animate={{ opacity: 1, y: 0, x: 0 }}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
           <Card key={index}>
             <CardHeader className="grid items-start gap-4 space-y-0">
               <div className="space-y-1">
                 <CardTitle>{repo?.full_name}</CardTitle>
-                <CardDescription>
+                <CardDescription className="max-w-[45ch] overflow-hidden truncate">
                   {repo?.description || "No description provided."}
                 </CardDescription>
               </div>

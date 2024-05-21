@@ -13,7 +13,6 @@ export default async function Page({
   const data = await fetchStarredRepos({ username });
   const userData = await fetchUser({ username });
 
-  console.log({ userData });
   return (
     <>
       <RepoProfile user={userData} />
