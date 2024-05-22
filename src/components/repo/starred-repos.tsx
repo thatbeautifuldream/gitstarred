@@ -9,7 +9,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { motion } from "framer-motion";
-import dayjs from "dayjs";
+import { Link } from "next-view-transitions";
+import { getFormattedDate } from "~/lib/utils";
 
 export default function StarredRepos({ repos }: { repos: Repository[] }) {
   return (
@@ -24,7 +25,16 @@ export default function StarredRepos({ repos }: { repos: Repository[] }) {
           <Card key={index}>
             <CardHeader className="grid items-start gap-4 space-y-0">
               <div className="space-y-1">
-                <CardTitle>{repo?.full_name}</CardTitle>
+                <CardTitle>
+                  <Link
+                    href={`/${repo?.full_name.split("/")[0]}`}
+                    className="hover:underline"
+                    rel="noopener noreferrer"
+                  >
+                    {repo?.full_name.split("/")[0]}
+                  </Link>
+                  /{repo?.full_name.split("/")[1]}
+                </CardTitle>
                 <CardDescription className="max-w-[45ch] overflow-hidden truncate">
                   {repo?.description || "No description provided."}
                 </CardDescription>
@@ -40,9 +50,7 @@ export default function StarredRepos({ repos }: { repos: Repository[] }) {
                   <StarIcon className="mr-1 h-3 w-3" />
                   {repo?.stargazers_count}
                 </div>
-                <div>
-                  Updated {dayjs(repo?.updated_at).format("MMM D, YYYY")}
-                </div>
+                <div>Updated {getFormattedDate(repo?.updated_at)}</div>
               </div>
             </CardContent>
           </Card>

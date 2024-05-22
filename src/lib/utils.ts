@@ -4,3 +4,9 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export const getFormattedDate = (dateString: string): string => {
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "long",
+  }).format(new Date(dateString));
+};
