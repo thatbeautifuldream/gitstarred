@@ -4,15 +4,15 @@ This is an application that showcases starred repositories from github users.
 
 ## Features
 
-[x] Showcase user starred repositories.
-[ ] Showcase user contributions in repositories.
-[ ] Showcase user followers.
-[ ] Showcase user following.
-[ ] Showcase user organizations.
-[ ] Showcase user repositories.
-[ ] Showcase user gists.
-[ ] Showcase user events.
-[ ] Showcase user organizations.
+- [x] Showcase user starred repositories.
+- [ ] Showcase user contributions in repositories.
+- [ ] Showcase user followers.
+- [ ] Showcase user following.
+- [ ] Showcase user organizations.
+- [ ] Showcase user repositories.
+- [ ] Showcase user gists.
+- [ ] Showcase user events.
+- [ ] Showcase user organizations.
 
 ## Technologies
 
